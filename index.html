@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Phun Potthea</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="menu_hide">
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#portfolio">PORTFOLIO</a>
+            <a href="#contact">CONTACT</a>
+        </div>
+        <div class="logo">
+            <h2>POTTHEA007</h2>
+        </div>
+        <div class="menu">
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#portfolio">PORTFOLIO</a>
+            <a href="#contact">CONTACT</a>
+        </div>
+        <div class="language_bg">
+            <!-- <i class="sun fa-solid fa-cloud-sun fa-xl"></i> -->
+            <!-- <i class="moon fa-solid fa-cloud-moon  fa-xl"></i> -->
+            <div class="language">
+                <section>
+                    <img src="img/eng.png" alt="">
+                    <span class="ms-2">English</span>
+                </section>
+                <div class="list_language">
+                    <div>
+                        <img src="img/eng.png" alt="">
+                        <span class="ms-2">English</span>
+                    </div>
+                    <div>
+                        <img src="img/kh.png" alt="">
+                        <span class="ms-2">Cambodia</span>
+                    </div>
+                    <div>
+                        <img src="img/china.png" alt="">
+                        <span class="ms-2">China</span>
+                    </div>
+                </div>
+            </div>
+            <i class="fa-solid fa-bars-staggered fa-xl icon_listmenu"></i>
+        </div>
+    </div>
+    <div id="home" class="home_page">
+        <img src="img/poth.jpg" alt=""><br><br>
+        <h1>Hello! my name is <span class="text-warning">PHUN</span><span class="ms-2 text-success">POTTHEA</span></h1>
+        <p>Passionate Web Developer | Tech Enthusiast</p>
+        <span>Follow Me</span>
+        <div class="follow">
+            <a href="https://web.facebook.com/phun.potthea.1222" target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/@p_potthea" target="_blank">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/pottheaphon/" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://github.com/MrPotthea" target="_blank">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://t.me/PhunPotthea" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+        </div>
+    </div>
+    <br>
+    <div id="about" class="about">
+        <h1 class="text-center">About Me</h1>
+        <div class="container">
+            <aside class="sidebar">
+                <button class="btn active" onclick="showSection('details')">Detail me</button>
+                <button class="btn" onclick="showSection('education')">Education</button>
+                <button class="btn" onclick="showSection('hobbies')">Hobbies</button>
+                <button class="btn" onclick="showSection('languages')">Languages</button>
+                <button class="btn" onclick="showSection('mycv')">View CV</button>
+            </aside>
+            <main class="content">
+                <div id="details" class="row details education-card active">
+                    <h2 class="text-start">Details me</h2>
+                    <div class="row">
+                        <div class="col-12 col-md-4 mb-3 mb-md-0"> <!-- Responsive Image Column -->
+                            <img src="img/poth.jpg" alt="Profile Picture" class="img-fluid rounded">
+                        </div>
+                        <div class="col-12 col-md-8 d-flex align-items-center">
+                            <p class="text-white text-start">
+                                Hello, my name is <strong class="text-info">Phun Putthea</strong>. I am currently a
+                                third-year student at the Royal
+                                University of Phnom Penh. I have a strong passion for web development and I am actively
+                                studying
+                                and improving my skills. My goal is to become a skilled web developer and contribute to
+                                the
+                                digital world.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="education" class="details">
+                    <h2 class="text-start">Education</h2>
+                    <div class="education-card">
+                        <p class="date">2022 - Present</p>
+                        <h5>Royal University of Phnom Penh</h5>
+                        <p class="course">CBachelor of Computer Science</p>
+                    </div>
+                    <div class="education-card">
+                        <p class="date">2019 - 2022</p>
+                        <h5>Touk Meas High School</h5>
+                        <p class="course">Social Science Class</p>
+                    </div>
+                    <div class="education-card">
+                        <p class="date">2017 - 2019</p>
+                        <h5>Chrung Sralao Secondary School</h5>
+                    </div>
+                    <div class="education-card">
+                        <p class="date">2011 - 2017</p>
+                        <h5>Pong Tuek Primary School</h5>
+                    </div>
+                </div>
+                <div id="hobbies" class="details">
+                    <h2>Hobbies</h2>
+                    <div class="education">
+                        <div class="education-card">
+                            <li class="text-warning"><i class="fas fa-code text-info"></i> <span
+                                    class="text-white ms-2">Coding & Web Development</span></li>
+                            <li class="text-warning"><i class="fas fa-book text-success"></i> <span
+                                    class="text-white ms-2">Reading Tech Blogs</span></li>
+                            <li class="text-warning"><i class="fas fa-gamepad text-danger"></i> <span
+                                    class="text-white ms-2">Playing Video Games</span></li>
+                            <li class="text-warning"><i class="fas fa-music text-primary"></i> <span
+                                    class="text-white ms-2">Listening to Music</span></li>
+                            <li class="text-warning"><i class="fas fa-laptop-code text-secondary"></i> <span
+                                    class="text-white ms-2">Exploring New Technologies</span></li>
+                            <li class="text-warning"><i class="fas fa-utensils text-warning"></i> <span
+                                    class="text-white ms-2">Cooking</span></li>
+                        </div>
+                    </div>
+                </div>
+                <div id="languages" class="details">
+                    <h2 class="text-start">Languages</h2>
+                    <div class="education-card">
+                        <li class="text-warning">
+                            <span class="text-white ms-2">Khmer</span>
+                            <span>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                            </span>
+                        </li>
+                        <li class="text-warning">
+                            <span class="text-white ms-2">English</span>
+                            <span>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                                <i class="fas fa-star text-warning ms-2"></i>
+                            </span>
+                        </li>
+                    </div>
+                </div>
+                <div id="mycv" class="details">
+                    <h2 class="text-start">My CV</h2>
+                    <div class="education-card d-flex flex-column">
+                        <img class="cv" src="img/mycv.png" alt="cv">
+                        <button style="background-color: goldenrod;width: 200px;margin-top: 20px;margin-left: 10px;"
+                            class="btn btn-warning py-2" id="downloadBtn">Download CV</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div id="skills" class="skill mt-5"><br><br>
+        <h1 class="text-center">Skills</h1><br><br>
+        <div class="list_skill">
+            <ul>
+                <li>All skill</li>
+                <li>Design Tools</li>
+                <li>Programming</li>
+                <li>Frameworks&Libraries</li>
+                <li>Development Tools</li>
+                <li>Databases&Networking</li>
+            </ul>
+        </div><br>
+        <div class="skills-container" id="skills-container">
+            <!-- Dynamic skill cards will be inserted here -->
+        </div>
+    </div>
+    <div id="portfolio" class="portfolio mt-5">
+        <br><br>
+        <h1 class="text-center">Portfolio</h1><br><br>
+        <div class="gallery" id="gallery-container">
+            <!-- Gallery images will be injected here by JavaScript -->
+        </div>
+    </div>
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img class="modal-img" id="modalImage">
+            <div id="imageList" class="list_img">
+            </div>
+            <button id="modalDownloadBtn" class="btn btn-warning mt-3"
+                style="width: 300px;background-color: goldenrod;">Perview</button>
+        </div>
+    </div>
+    <div id="contact" class="contact mt-5"><br><br>
+        <h1 class="text-center">Contact Me</h1><br><br>
+        <div class="contact-container">
+            <!-- Left Side (Image) -->
+            <div class="image-section">
+                <img src="img/photo_2023-09-12_21-31-54.jpg" alt="Profile Image">
+            </div>
+            <div class="contact-section">
+                <div class="contact-info">
+                    <h3>Email</h3>
+                    <p>pottheamr@.com</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Tel</h3>
+                    <p>+855 86349187</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Address</h3>
+                    <p>St 271,Sangkat Tomnobteuk,Khan Chamkamon,Phnom Penh,Cambodia</p>
+                </div>
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="https://web.facebook.com/phun.potthea.1222" target="_blank">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@p_potthea" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.instagram.com/pottheaphon/" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/MrPotthea" target="_blank">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://t.me/PhunPotthea" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                </div>
+                <div class="input_contact">
+                    <h3>You can send a message</h3>
+                    <input type="text" id="name" placeholder="Full name">
+                    <input type="email" id="email" placeholder="Email">
+                    <textarea id="message" placeholder="Message"></textarea>
+                    <button id="send-button">Send your message</button>
+                </div>
+
+                <!-- Thank You Modal -->
+                <div id="thank-you-modal" class="modal_contact">
+                    <div class="modal-content-_contact">
+                        <span class="close-modal-_contact">&times;</span>
+                        <p>Thank you for your message!<i class="fa-solid fa-check ms-1 fa-xl text-primary"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="logo">
+            <h2>POTTHEA007</h2>
+        </div><br>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </div><br>
+        <div class="footer-social">
+            <a href="https://web.facebook.com/phun.potthea.1222" target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/@p_potthea" target="_blank">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/pottheaphon/" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://github.com/MrPotthea" target="_blank">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://t.me/PhunPotthea" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+        </div>
+    </div><br>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Potthea007.</p>
+    </div>
+</footer>
+
+<script src="js.js">
+</script>
+
+</html>
