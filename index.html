@@ -18,48 +18,1454 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <title>Phun Potthea</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Lilita+One&family=Rowdies:wght@300;400;700&family=Teko:wght@300..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Lilita+One&family=Rowdies:wght@300;400;700&family=Teko:wght@300..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Lilita+One&family=Rowdies:wght@300;400;700&family=Teko:wght@300..700&display=swap');
+
+        /* Custom Variables */
+        :root {
+            --primary-color: #e49e1d;
+            --secondary-color: #085b64;
+            --accent-color: #ffcc00;
+            --dark-color: #1e1e1e;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            font-family: "Exo 2", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            width: 100%;
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: transparent;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background-color: rgba(39, 38, 38, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo h2 {
+            font-family: "Teko", sans-serif;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .logo h2:hover {
+            transform: scale(1.05);
+        }
+
+        .menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .menu a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        .menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .menu a:hover::after {
+            width: 100%;
+        }
+
+        .language_bg {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .language {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .language section {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .language section:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .language section img {
+            width: 25px;
+            height: 25px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .language section span {
+            color: #b0b0b0;
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+
+        .language .list_language {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+            min-width: 150px;
+        }
+
+        .list_language div {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .list_language div:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .list_language div img {
+            width: 25px;
+            height: 25px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .list_language div span {
+            color: var(--text-color);
+            margin-left: 8px;
+        }
+
+        .icon_listmenu {
+            color: #b0b0b0;
+            cursor: pointer;
+            display: none;
+            transition: var(--transition);
+        }
+
+        .icon_listmenu:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        .menu_hide {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(39, 38, 38, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            padding: 80px 30px 30px;
+            gap: 20px;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu_hide.active {
+            right: 0;
+        }
+
+        .menu_hide a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .menu_hide a:hover {
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        /* Home Section */
+        .home_page {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home_page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(228, 158, 29, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(8, 91, 100, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .home_page > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .home_page img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 30px var(--primary-color);
+            margin-bottom: 30px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .home_page img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--primary-color);
+        }
+
+        .home_page h1 {
+            font-family: "Exo 2", sans-serif;
+            font-weight: bold;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .home_page p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #b0b0b0;
+        }
+
+        .home_page span {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+            color: #b0b0b0;
+        }
+
+        .follow {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .follow a {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0.5rem 0.5rem rgba(142, 122, 6, 0.3), -0.5rem -0.5rem rgba(204, 204, 204, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .follow a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .follow a:hover::before {
+            left: 100%;
+        }
+
+        .follow a i {
+            font-size: 24px;
+            transition: var(--transition);
+        }
+
+        .follow a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0.5rem 0.5rem rgba(5, 225, 89, 0.3), -0.5rem -0.5rem rgba(204, 204, 204, 0.1);
+            color: var(--accent-color);
+        }
+
+        /* About Section */
+        .about {
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 30px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--dark-color);
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(228, 158, 29, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 80%, rgba(8, 91, 100, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .about > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about h1 {
+            color: var(--light-color);
+            font-family: "Anton", serif;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            gap: 30px;
+        }
+
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .btn.active,
+        .btn:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-color: transparent;
+            transform: translateX(5px);
+        }
+
+        .content {
+            flex: 3;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .education-card {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .education-card:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .education-card p,
+        .education-card h5 {
+            color: #b0b0b0;
+        }
+
+        .date {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+        }
+
+        .content h2 {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+            color: var(--light-color);
+            font-family: "Anton", serif;
+            margin-bottom: 20px;
+        }
+
+        .details .cv {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .details .cv:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .details img {
+            margin: 10px;
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .details img:hover {
+            transform: scale(1.03);
+        }
+
+        .details li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .details li i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .details {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .details.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Skills Section */
+        .skill {
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 30px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--dark-color);
+            position: relative;
+        }
+
+        .skill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(228, 158, 29, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 70%, rgba(8, 91, 100, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .skill > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill h1 {
+            color: var(--light-color);
+            font-family: "Anton", serif;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .skill h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .list_skill ul {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            padding: 0;
+            margin-bottom: 40px;
+        }
+
+        .list_skill ul li {
+            list-style: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .list_skill ul li:hover,
+        .list_skill ul li.active {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(228, 158, 29, 0.3);
+        }
+
+        .skills-container {
+            width: 90%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .skill-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 25px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: left;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(228, 158, 29, 0.1) 0%, transparent 50%);
+            z-index: 0;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-info h2 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--light-color);
+            flex: 1;
+        }
+
+        .skill-info img {
+            width: 50px;
+            height: 50px;
+            padding: 8px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover .skill-info img {
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.1);
+            height: 10px;
+            margin-top: 20px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .progress {
+            border-radius: 5px;
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+            position: relative;
+        }
+
+        .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            color: white;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 30px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--dark-color);
+            position: relative;
+        }
+
+        .portfolio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(228, 158, 29, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(8, 91, 100, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .portfolio > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio h1 {
+            color: var(--light-color);
+            font-family: "Anton", serif;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .portfolio h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            margin: auto;
+            background-color: rgba(30, 30, 30, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease-in-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-navigation {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-navigation button {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+
+        .modal-navigation button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .modal-navigation button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .list_img {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            flex-direction: row;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .list_img::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .list_img::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .list_img::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .list_img::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        .list_img img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .list_img img:hover,
+        .list_img img.active {
+            opacity: 1;
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Contact Section */
+        .contact {
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 30px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--dark-color);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(228, 158, 29, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(8, 91, 100, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .contact > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact h1 {
+            color: var(--light-color);
+            font-family: "Anton", serif;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .contact-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .image-section {
+            flex: 1;
+            background: #ddd;
+            overflow: hidden;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .image-section:hover img {
+            transform: scale(1.05);
+        }
+
+        .contact-section {
+            flex: 1;
+            padding: 40px;
+            background: var(--secondary-color);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info {
+            margin-bottom: 25px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .contact-info p {
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #e0e0e0;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .input_contact {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .input_contact h3 {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .input_contact input,
+        .input_contact textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+        }
+
+        .input_contact input:focus,
+        .input_contact textarea:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .input_contact textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .input_contact button {
+            padding: 15px;
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .input_contact button:hover {
+            background: #e6b800;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 184, 0, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal_contact {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content-_contact {
+            background-color: white;
+            color: var(--text-color);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease-in-out;
+        }
+
+        .close-modal-_contact {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal-_contact:hover {
+            color: #000;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .footer-social a {
+            color: #b0b0b0;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            color: #b0b0b0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .skills-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .list_skill ul {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .menu {
+                display: none;
+            }
+
+            .icon_listmenu {
+                display: flex;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                justify-content: flex-start;
+                padding: 15px;
+            }
+            
+            .btn {
+                min-width: 150px;
+                text-align: center;
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .list_skill ul {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .image-section {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .home_page h1 {
+                font-size: 2.2rem;
+            }
+            
+            .home_page img {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .about h1, .skill h1, .portfolio h1, .contact h1 {
+                font-size: 2.5rem;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .list_skill ul {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .list_img img {
+                width: 100px;
+                height: 70px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .home_page h1 {
+                font-size: 1.8rem;
+            }
+            
+            .home_page img {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .follow a {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .follow a i {
+                font-size: 20px;
+            }
+            
+            .about h1, .skill h1, .portfolio h1, .contact h1 {
+                font-size: 2rem;
+            }
+            
+            .list_skill ul {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Header -->
     <div class="header">
         <div class="menu_hide">
-            <a href="#home">HOME</a>
-            <a href="#about">ABOUT</a>
-            <a href="#skills">SKILLS</a>
-            <a href="#portfolio">PORTFOLIO</a>
-            <a href="#contact">CONTACT</a>
+            <a href="#home" data-translate="home">HOME</a>
+            <a href="#about" data-translate="about">ABOUT</a>
+            <a href="#skills" data-translate="skills">SKILLS</a>
+            <a href="#portfolio" data-translate="portfolio">PORTFOLIO</a>
+            <a href="#contact" data-translate="contact">CONTACT</a>
         </div>
         <div class="logo">
             <h2>POTTHEA007</h2>
         </div>
         <div class="menu">
-            <a href="#home">HOME</a>
-            <a href="#about">ABOUT</a>
-            <a href="#skills">SKILLS</a>
-            <a href="#portfolio">PORTFOLIO</a>
-            <a href="#contact">CONTACT</a>
+            <a href="#home" data-translate="home">HOME</a>
+            <a href="#about" data-translate="about">ABOUT</a>
+            <a href="#skills" data-translate="skills">SKILLS</a>
+            <a href="#portfolio" data-translate="portfolio">PORTFOLIO</a>
+            <a href="#contact" data-translate="contact">CONTACT</a>
         </div>
         <div class="language_bg">
-            <!-- <i class="sun fa-solid fa-cloud-sun fa-xl"></i> -->
-            <!-- <i class="moon fa-solid fa-cloud-moon  fa-xl"></i> -->
             <div class="language">
                 <section>
-                    <img src="img/eng.png" alt="">
-                    <span class="ms-2">English</span>
+                    <img src="img/eng.png" alt="English">
+                    <span class="ms-2" data-translate="currentLanguage">English</span>
                 </section>
                 <div class="list_language">
-                    <div>
-                        <img src="img/eng.png" alt="">
+                    <div data-lang="English">
+                        <img src="img/eng.png" alt="English">
                         <span class="ms-2">English</span>
                     </div>
-                    <div>
-                        <img src="img/kh.png" alt="">
+                    <div data-lang="Cambodia">
+                        <img src="img/kh.png" alt="Cambodia">
                         <span class="ms-2">Cambodia</span>
                     </div>
-                    <div>
-                        <img src="img/china.png" alt="">
+                    <div data-lang="China">
+                        <img src="img/china.png" alt="China">
                         <span class="ms-2">China</span>
                     </div>
                 </div>
@@ -67,11 +1473,13 @@
             <i class="fa-solid fa-bars-staggered fa-xl icon_listmenu"></i>
         </div>
     </div>
+
+    <!-- Home Section -->
     <div id="home" class="home_page">
-        <img src="img/poth.jpg" alt=""><br><br>
-        <h1>Hello! my name is <span class="text-warning">PHUN</span><span class="ms-2 text-success">POTTHEA</span></h1>
-        <p>Passionate Web Developer | Tech Enthusiast</p>
-        <span>Follow Me</span>
+        <img src="img/poth.jpg" alt="Phun Potthea"><br><br>
+        <h1><span data-translate="greeting">Hello! my name is</span> <span class="text-warning">PHUN</span><span class="ms-2 text-success">POTTHEA</span></h1>
+        <p data-translate="description">Passionate Web Developer | Tech Enthusiast</p>
+        <span data-translate="follow">Follow Me</span>
         <div class="follow">
             <a href="https://web.facebook.com/phun.potthea.1222" target="_blank">
                 <i class="fa-brands fa-facebook"></i>
@@ -90,26 +1498,27 @@
             </a>
         </div>
     </div>
-    <br>
+
+    <!-- About Section -->
     <div id="about" class="about">
-        <h1 class="text-center">About Me</h1>
+        <h1 class="text-center" data-translate="aboutMe">About Me</h1>
         <div class="container">
             <aside class="sidebar">
-                <button class="btn active" onclick="showSection('details')">Detail me</button>
-                <button class="btn" onclick="showSection('education')">Education</button>
-                <button class="btn" onclick="showSection('hobbies')">Hobbies</button>
-                <button class="btn" onclick="showSection('languages')">Languages</button>
-                <button class="btn" onclick="showSection('mycv')">View CV</button>
+                <button class="btn active" onclick="showSection('details')" data-translate="detailMe">Detail me</button>
+                <button class="btn" onclick="showSection('education')" data-translate="education">Education</button>
+                <button class="btn" onclick="showSection('hobbies')" data-translate="hobbies">Hobbies</button>
+                <button class="btn" onclick="showSection('languages')" data-translate="languages">Languages</button>
+                <button class="btn" onclick="showSection('mycv')" data-translate="mycv">View CV</button>
             </aside>
             <main class="content">
                 <div id="details" class="row details education-card active">
-                    <h2 class="text-start">Details me</h2>
+                    <h2 class="text-start" data-translate="detailMe">Details me</h2>
                     <div class="row">
-                        <div class="col-12 col-md-4 mb-3 mb-md-0"> <!-- Responsive Image Column -->
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
                             <img src="img/poth.jpg" alt="Profile Picture" class="img-fluid rounded">
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="text-white text-start">
+                            <p class="text-white text-start" data-translate="aboutText">
                                 Hello, my name is <strong class="text-info">Phun Putthea</strong>. I am currently a
                                 third-year student at the Royal
                                 University of Phnom Penh. I have a strong passion for web development and I am actively
@@ -123,50 +1532,50 @@
                 </div>
 
                 <div id="education" class="details">
-                    <h2 class="text-start">Education</h2>
+                    <h2 class="text-start" data-translate="education">Education</h2>
                     <div class="education-card">
                         <p class="date">2022 - Present</p>
-                        <h5>Royal University of Phnom Penh</h5>
-                        <p class="course">CBachelor of Computer Science</p>
+                        <h5 data-translate="education1">Royal University of Phnom Penh</h5>
+                        <p class="course" data-translate="education1Course">Bachelor of Computer Science</p>
                     </div>
                     <div class="education-card">
                         <p class="date">2019 - 2022</p>
-                        <h5>Touk Meas High School</h5>
-                        <p class="course">Social Science Class</p>
+                        <h5 data-translate="education2">Touk Meas High School</h5>
+                        <p class="course" data-translate="education2Course">Social Science Class</p>
                     </div>
                     <div class="education-card">
                         <p class="date">2017 - 2019</p>
-                        <h5>Chrung Sralao Secondary School</h5>
+                        <h5 data-translate="education3">Chrung Sralao Secondary School</h5>
                     </div>
                     <div class="education-card">
                         <p class="date">2011 - 2017</p>
-                        <h5>Pong Tuek Primary School</h5>
+                        <h5 data-translate="education4">Pong Tuek Primary School</h5>
                     </div>
                 </div>
                 <div id="hobbies" class="details">
-                    <h2>Hobbies</h2>
+                    <h2 data-translate="hobbies">Hobbies</h2>
                     <div class="education">
                         <div class="education-card">
                             <li class="text-warning"><i class="fas fa-code text-info"></i> <span
-                                    class="text-white ms-2">Coding & Web Development</span></li>
+                                    class="text-white ms-2" data-translate="hobby1">Coding & Web Development</span></li>
                             <li class="text-warning"><i class="fas fa-book text-success"></i> <span
-                                    class="text-white ms-2">Reading Tech Blogs</span></li>
+                                    class="text-white ms-2" data-translate="hobby2">Reading Tech Blogs</span></li>
                             <li class="text-warning"><i class="fas fa-gamepad text-danger"></i> <span
-                                    class="text-white ms-2">Playing Video Games</span></li>
+                                    class="text-white ms-2" data-translate="hobby3">Playing Video Games</span></li>
                             <li class="text-warning"><i class="fas fa-music text-primary"></i> <span
-                                    class="text-white ms-2">Listening to Music</span></li>
+                                    class="text-white ms-2" data-translate="hobby4">Listening to Music</span></li>
                             <li class="text-warning"><i class="fas fa-laptop-code text-secondary"></i> <span
-                                    class="text-white ms-2">Exploring New Technologies</span></li>
+                                    class="text-white ms-2" data-translate="hobby5">Exploring New Technologies</span></li>
                             <li class="text-warning"><i class="fas fa-utensils text-warning"></i> <span
-                                    class="text-white ms-2">Cooking</span></li>
+                                    class="text-white ms-2" data-translate="hobby6">Cooking</span></li>
                         </div>
                     </div>
                 </div>
                 <div id="languages" class="details">
-                    <h2 class="text-start">Languages</h2>
+                    <h2 class="text-start" data-translate="languages">Languages</h2>
                     <div class="education-card">
                         <li class="text-warning">
-                            <span class="text-white ms-2">Khmer</span>
+                            <span class="text-white ms-2" data-translate="language1">Khmer</span>
                             <span>
                                 <i class="fas fa-star text-warning ms-2"></i>
                                 <i class="fas fa-star text-warning ms-2"></i>
@@ -176,7 +1585,7 @@
                             </span>
                         </li>
                         <li class="text-warning">
-                            <span class="text-white ms-2">English</span>
+                            <span class="text-white ms-2" data-translate="language2">English</span>
                             <span>
                                 <i class="fas fa-star text-warning ms-2"></i>
                                 <i class="fas fa-star text-warning ms-2"></i>
@@ -186,51 +1595,63 @@
                     </div>
                 </div>
                 <div id="mycv" class="details">
-                    <h2 class="text-start">My CV</h2>
+                    <h2 class="text-start" data-translate="mycv">My CV</h2>
                     <div class="education-card d-flex flex-column">
                         <img class="cv" src="img/mycv.png" alt="cv">
                         <button style="background-color: goldenrod;width: 200px;margin-top: 20px;margin-left: 10px;"
-                            class="btn btn-warning py-2" id="downloadBtn">Download CV</button>
+                            class="btn btn-warning py-2" id="downloadBtn" data-translate="downloadCV">Download CV</button>
                     </div>
                 </div>
             </main>
         </div>
     </div>
+
+    <!-- Skills Section -->
     <div id="skills" class="skill mt-5"><br><br>
-        <h1 class="text-center">Skills</h1><br><br>
+        <h1 class="text-center" data-translate="skills">Skills</h1><br><br>
         <div class="list_skill">
             <ul>
-                <li>All skill</li>
-                <li>Design Tools</li>
-                <li>Programming</li>
-                <li>Frameworks&Libraries</li>
-                <li>Development Tools</li>
-                <li>Databases&Networking</li>
+                <li class="active" data-translate="allSkills">All skill</li>
+                <li data-translate="designTools">Design Tools</li>
+                <li data-translate="programming">Programming</li>
+                <li data-translate="frameworks">Frameworks & Libraries</li>
+                <li data-translate="developmentTools">Development Tools</li>
+                <li data-translate="databases">Databases & Networking</li>
             </ul>
         </div><br>
         <div class="skills-container" id="skills-container">
             <!-- Dynamic skill cards will be inserted here -->
         </div>
     </div>
+
+    <!-- Portfolio Section -->
     <div id="portfolio" class="portfolio mt-5">
         <br><br>
-        <h1 class="text-center">Portfolio</h1><br><br>
+        <h1 class="text-center" data-translate="portfolio">Portfolio</h1><br><br>
         <div class="gallery" id="gallery-container">
             <!-- Gallery images will be injected here by JavaScript -->
         </div>
     </div>
+
+    <!-- Image Modal -->
     <div id="imageModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <img class="modal-img" id="modalImage">
+            <div class="modal-navigation">
+                <button id="prevButton" data-translate="previous">Previous</button>
+                <button id="nextButton" data-translate="next">Next</button>
+            </div>
             <div id="imageList" class="list_img">
             </div>
             <button id="modalDownloadBtn" class="btn btn-warning mt-3"
-                style="width: 300px;background-color: goldenrod;">Perview</button>
+                style="width: 300px;background-color: goldenrod;" data-translate="preview">Preview</button>
         </div>
     </div>
+
+    <!-- Contact Section -->
     <div id="contact" class="contact mt-5"><br><br>
-        <h1 class="text-center">Contact Me</h1><br><br>
+        <h1 class="text-center" data-translate="contact">Contact Me</h1><br><br>
         <div class="contact-container">
             <!-- Left Side (Image) -->
             <div class="image-section">
@@ -238,16 +1659,16 @@
             </div>
             <div class="contact-section">
                 <div class="contact-info">
-                    <h3>Email</h3>
+                    <h3 data-translate="email">Email</h3>
                     <p>pottheamr@.com</p>
                 </div>
                 <div class="contact-info">
-                    <h3>Tel</h3>
+                    <h3 data-translate="tel">Tel</h3>
                     <p>+855 86349187</p>
                 </div>
                 <div class="contact-info">
-                    <h3>Address</h3>
-                    <p>St 271,Sangkat Tomnobteuk,Khan Chamkamon,Phnom Penh,Cambodia</p>
+                    <h3 data-translate="address">Address</h3>
+                    <p data-translate="addressText">St 271,Sangkat Tomnobteuk,Khan Chamkamon,Phnom Penh,Cambodia</p>
                 </div>
                 <!-- Social Icons -->
                 <div class="social-icons">
@@ -268,60 +1689,810 @@
                     </a>
                 </div>
                 <div class="input_contact">
-                    <h3>You can send a message</h3>
-                    <input type="text" id="name" placeholder="Full name">
-                    <input type="email" id="email" placeholder="Email">
-                    <textarea id="message" placeholder="Message"></textarea>
-                    <button id="send-button">Send your message</button>
+                    <h3 data-translate="sendMessage">You can send a message</h3>
+                    <input type="text" id="name" placeholder="Full name" data-translate="namePlaceholder">
+                    <input type="email" id="email" placeholder="Email" data-translate="emailPlaceholder">
+                    <textarea id="message" placeholder="Message" data-translate="messagePlaceholder"></textarea>
+                    <button id="send-button" data-translate="sendButton">Send your message</button>
                 </div>
 
                 <!-- Thank You Modal -->
                 <div id="thank-you-modal" class="modal_contact">
                     <div class="modal-content-_contact">
                         <span class="close-modal-_contact">&times;</span>
-                        <p>Thank you for your message!<i class="fa-solid fa-check ms-1 fa-xl text-primary"></i></p>
+                        <p data-translate="thankYou">Thank you for your message!</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
-<footer class="footer">
-    <div class="footer-container">
-        <div class="logo">
-            <h2>POTTHEA007</h2>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="logo">
+                <h2>POTTHEA007</h2>
+            </div><br>
+            <div class="footer-links">
+                <a href="#home" data-translate="home">Home</a>
+                <a href="#about" data-translate="about">About</a>
+                <a href="#skills" data-translate="skills">Skills</a>
+                <a href="#portfolio" data-translate="portfolio">Portfolio</a>
+                <a href="#contact" data-translate="contact">Contact</a>
+            </div><br>
+            <div class="footer-social">
+                <a href="https://web.facebook.com/phun.potthea.1222" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="https://www.tiktok.com/@p_potthea" target="_blank">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="https://www.instagram.com/pottheaphon/" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://github.com/MrPotthea" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://t.me/PhunPotthea" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+            </div>
         </div><br>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-        </div><br>
-        <div class="footer-social">
-            <a href="https://web.facebook.com/phun.potthea.1222" target="_blank">
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://www.tiktok.com/@p_potthea" target="_blank">
-                <i class="fa-brands fa-tiktok"></i>
-            </a>
-            <a href="https://www.instagram.com/pottheaphon/" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://github.com/MrPotthea" target="_blank">
-                <i class="fa-brands fa-github"></i>
-            </a>
-            <a href="https://t.me/PhunPotthea" target="_blank" rel="noopener noreferrer">
-                <i class="fa-brands fa-telegram"></i>
-            </a>
+        <div class="footer-bottom">
+            <p data-translate="footerText">&copy; 2025 Potthea007.</p>
         </div>
-    </div><br>
-    <div class="footer-bottom">
-        <p>&copy; 2025 Potthea007.</p>
-    </div>
-</footer>
+    </footer>
 
-<script src="js.js">
-</script>
+    <script>
+        // Initialize AOS
+        AOS.init();
 
+        // Language Management
+        const translations = {
+            "English": {
+                "home": "HOME",
+                "about": "ABOUT",
+                "skills": "SKILLS",
+                "portfolio": "PORTFOLIO",
+                "contact": "CONTACT",
+                "greeting": "Hello! my name is",
+                "description": "Passionate Web Developer | Tech Enthusiast",
+                "follow": "Follow Me",
+                "aboutMe": "About Me",
+                "detailMe": "Details me",
+                "education": "Education",
+                "hobbies": "Hobbies",
+                "languages": "Languages",
+                "mycv": "View CV",
+                "sendMessage": "You can send a message",
+                "downloadCV": "Download CV",
+                "footerText": "© 2025 Potthea007.",
+                "currentLanguage": "English",
+                "allSkills": "All skill",
+                "designTools": "Design Tools",
+                "programming": "Programming",
+                "frameworks": "Frameworks & Libraries",
+                "developmentTools": "Development Tools",
+                "databases": "Databases & Networking",
+                "previous": "Previous",
+                "next": "Next",
+                "preview": "Preview",
+                "email": "Email",
+                "tel": "Tel",
+                "address": "Address",
+                "addressText": "St 271,Sangkat Tomnobteuk,Khan Chamkamon,Phnom Penh,Cambodia",
+                "namePlaceholder": "Full name",
+                "emailPlaceholder": "Email",
+                "messagePlaceholder": "Message",
+                "sendButton": "Send your message",
+                "thankYou": "Thank you for your message!",
+                "aboutText": "Hello, my name is Phun Putthea. I am currently a third-year student at the Royal University of Phnom Penh. I have a strong passion for web development and I am actively studying and improving my skills. My goal is to become a skilled web developer and contribute to the digital world.",
+                "education1": "Royal University of Phnom Penh",
+                "education1Course": "Bachelor of Computer Science",
+                "education2": "Touk Meas High School",
+                "education2Course": "Social Science Class",
+                "education3": "Chrung Sralao Secondary School",
+                "education4": "Pong Tuek Primary School",
+                "hobby1": "Coding & Web Development",
+                "hobby2": "Reading Tech Blogs",
+                "hobby3": "Playing Video Games",
+                "hobby4": "Listening to Music",
+                "hobby5": "Exploring New Technologies",
+                "hobby6": "Cooking",
+                "language1": "Khmer",
+                "language2": "English"
+            },
+            "Cambodia": {
+                "home": "ផ្ទះ",
+                "about": "អំពី",
+                "skills": "ជំនាញ",
+                "portfolio": "កាសែត",
+                "contact": "ទំនាក់ទំនង",
+                "greeting": "សួស្តី! ឈ្មោះរបស់ខ្ញុំគឺ",
+                "description": "អ្នកអភិវឌ្ឍន៍វេបសាយដែលមានចំណាប់អារម្មណ៍ | អ្នកចូលចិត្តបច្ចេកវិទ្យា",
+                "follow": "តាមដានខ្ញុំ",
+                "aboutMe": "អំពីខ្ញុំ",
+                "detailMe": "ព័ត៌មានអំពីខ្ញុំ",
+                "education": "ការអប់រំ",
+                "hobbies": "ការកម្សាន្ត",
+                "languages": "ភាសា",
+                "mycv": "មើល CV",
+                "sendMessage": "អ្នកអាចផ្ញើសារមួយ",
+                "downloadCV": "ទាញយកប្រវត្តិរូប",
+                "footerText": "© ២០២៥ Potthea007.",
+                "currentLanguage": "ខ្មែរ",
+                "allSkills": "ជំនាញទាំងអស់",
+                "designTools": "ឧបករណ៍រចនា",
+                "programming": "ការសរសេរកម្មវិធី",
+                "frameworks": "Frameworks & Libraries",
+                "developmentTools": "ឧបករណ៍អភិវឌ្ឍន៍",
+                "databases": "មូលដ្ឋានទិន្នន័យ & បណ្តាញ",
+                "previous": "មុន",
+                "next": "បន្ទាប់",
+                "preview": "មើលជាមុន",
+                "email": "អ៊ីមែល",
+                "tel": "ទូរស័ព្ទ",
+                "address": "អាសយដ្ឋាន",
+                "addressText": "ផ្លូវ ២៧១, សង្កាត់តំណប់តឹក, ខណ្ឌចំការមន, ភ្នំពេញ, កម្ពុជា",
+                "namePlaceholder": "ឈ្មោះពេញ",
+                "emailPlaceholder": "អ៊ីមែល",
+                "messagePlaceholder": "សារ",
+                "sendButton": "ផ្ញើសាររបស់អ្នក",
+                "thankYou": "សូមអរគុណសម្រាប់សាររបស់អ្នក!",
+                "aboutText": "សួស្តី ខ្ញុំឈ្មោះ ផុន ពុទ្ធា។ ខ្ញុំបច្ចុប្បន្នជានិស្សិតឆ្នាំទី៣នៅសាកលវិទ្យាល័យភ្នំពេញ។ ខ្ញុំមានចំណាប់អារម្មណ៍ខ្លាំងចំពោះការអភិវឌ្ឍវេបសាយ ហើយខ្ញុំកំពុងសិក្សា និងកែលម្អជំនាញរបស់ខ្ញុំយ៉ាងសកម្ម។ គោលដៅរបស់ខ្ញុំគឺក្លាយជាអ្នកអភិវឌ្ឍវេបសាយដែលមានជំនាញ និងរួមចំណែកដល់ពិភពលោកឌីជីថល។",
+                "education1": "សាកលវិទ្យាល័យភ្នំពេញ",
+                "education1Course": "បរិញ្ញាប័ត្រវិទ្យាសាស្ត្រកុំព្យូទ័រ",
+                "education2": "វិទ្យាល័យទួកមាស",
+                "education2Course": "ថ្នាក់វិទ្យាសាស្ត្រសង្គម",
+                "education3": "អនុវិទ្យាល័យជ្រុងស្រឡៅ",
+                "education4": "បឋមសិក្សាពងទឹក",
+                "hobby1": "ការសរសេរកូដ និងការអភិវឌ្ឍវេបសាយ",
+                "hobby2": "ការអានប្លក់បច្ចេកវិទ្យា",
+                "hobby3": "ការលេងហ្គេមវីដេអូ",
+                "hobby4": "ការស្តាប់តន្ត្រី",
+                "hobby5": "ការរុករកបច្ចេកវិទ្យាថ្មីៗ",
+                "hobby6": "ការចំអិនអាហារ",
+                "language1": "ខ្មែរ",
+                "language2": "អង់គ្លេស"
+            },
+            "China": {
+                "home": "首页",
+                "about": "关于",
+                "skills": "技能",
+                "portfolio": "作品集",
+                "contact": "联系",
+                "greeting": "你好！我叫",
+                "description": "热情的网页开发者 | 技术爱好者",
+                "follow": "关注我",
+                "aboutMe": "关于我",
+                "detailMe": "我的详细信息",
+                "education": "教育",
+                "hobbies": "爱好",
+                "languages": "语言",
+                "mycv": "查看简历",
+                "sendMessage": "您可以发送消息",
+                "downloadCV": "下载简历",
+                "footerText": "© 2025 Potthea007.",
+                "currentLanguage": "中文",
+                "allSkills": "所有技能",
+                "designTools": "设计工具",
+                "programming": "编程",
+                "frameworks": "框架和库",
+                "developmentTools": "开发工具",
+                "databases": "数据库和网络",
+                "previous": "上一个",
+                "next": "下一个",
+                "preview": "预览",
+                "email": "电子邮件",
+                "tel": "电话",
+                "address": "地址",
+                "addressText": "柬埔寨金边市 Chamkamon 区 Tomnobteuk 分区 271 街",
+                "namePlaceholder": "全名",
+                "emailPlaceholder": "电子邮件",
+                "messagePlaceholder": "消息",
+                "sendButton": "发送您的消息",
+                "thankYou": "感谢您的留言！",
+                "aboutText": "你好，我叫 Phun Putthea。我目前是金边皇家大学的三年级学生。我对网页开发充满热情，并且正在积极学习和提高我的技能。我的目标是成为一名熟练的网页开发人员，并为数字世界做出贡献。",
+                "education1": "金边皇家大学",
+                "education1Course": "计算机科学学士",
+                "education2": "Touk Meas 高中",
+                "education2Course": "社会科学班",
+                "education3": "Chrung Sralao 中学",
+                "education4": "Pong Tuek 小学",
+                "hobby1": "编码和网页开发",
+                "hobby2": "阅读技术博客",
+                "hobby3": "玩电子游戏",
+                "hobby4": "听音乐",
+                "hobby5": "探索新技术",
+                "hobby6": "烹饪",
+                "language1": "高棉语",
+                "language2": "英语"
+            }
+        };
+
+        let currentLanguage = "English";
+        let currentModalImages = [];
+        let currentImageIndex = 0;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Language dropdown functionality
+            const languageSection = document.querySelector(".language section");
+            const languageList = document.querySelector(".list_language");
+            const languageOptions = document.querySelectorAll(".list_language div");
+
+            // Show or hide language dropdown
+            languageSection.addEventListener("click", function (event) {
+                event.stopPropagation();
+                languageList.style.display = (languageList.style.display === "flex") ? "none" : "flex";
+            });
+
+            // Change language on selection
+            languageOptions.forEach(option => {
+                option.addEventListener("click", function () {
+                    const selectedLanguage = this.getAttribute("data-lang");
+                    currentLanguage = selectedLanguage;
+
+                    // Update displayed language
+                    const flagSrc = this.querySelector("img").src;
+                    languageSection.innerHTML = `<img src="${flagSrc}" alt="${selectedLanguage}"><span class="ms-2" data-translate="currentLanguage">${selectedLanguage}</span>`;
+
+                    // Update all text content based on selected language
+                    updateTextContent(selectedLanguage);
+
+                    // Hide dropdown after selection
+                    languageList.style.display = "none";
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", function (event) {
+                if (!languageSection.contains(event.target)) {
+                    languageList.style.display = "none";
+                }
+            });
+
+            // Function to update text content based on selected language
+            function updateTextContent(selectedLanguage) {
+                const texts = translations[selectedLanguage];
+                
+                // Update all elements with data-translate attribute
+                document.querySelectorAll('[data-translate]').forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    if (texts[key]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = texts[key];
+                        } else {
+                            element.textContent = texts[key];
+                        }
+                    }
+                });
+            }
+
+            // Header scroll effect
+            const header = document.querySelector(".header");
+
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 100) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+
+            // Section switching functionality
+            const buttons = document.querySelectorAll(".btn");
+            const sections = document.querySelectorAll(".details");
+
+            function showSection(sectionId) {
+                sections.forEach((section) => {
+                    if (section.id === sectionId) {
+                        section.classList.add("fade-in", "active");
+                    } else {
+                        section.classList.remove("fade-in", "active");
+                    }
+                });
+
+                buttons.forEach((btn) => btn.classList.remove("active"));
+                document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add("active");
+            }
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const sectionId = this.getAttribute("onclick").match(/'([^']+)'/)[1];
+                    showSection(sectionId);
+                });
+            });
+
+            // Mobile menu functionality
+            const menuIcon = document.querySelector('.icon_listmenu');
+            const menuHide = document.querySelector('.menu_hide');
+            
+            menuIcon.addEventListener('click', function() {
+                menuHide.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            const menuLinks = document.querySelectorAll('.menu_hide a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    menuHide.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menuHide.contains(event.target) && !menuIcon.contains(event.target)) {
+                    menuHide.classList.remove('active');
+                }
+            });
+
+            // Gallery functionality with local images
+            const imageSources = [
+                {
+                    img_homepage: "img/personal_web.png",
+                    modalImageListSources: [
+                        "img/personal_web.png", 
+                        "img/personalabout.png", 
+                        "img/personalabout1.png", 
+                        "img/personalabout2.png", 
+                        "img/perosonalabout3.png", 
+                        "img/personalabout3.png", 
+                        "img/personalskill.png", 
+                        "img/perosonalskill2.png", 
+                        "img/personalskill3.png", 
+                        "img/personalporfolio.png", 
+                        "img/personalport1.png", 
+                        "img/personalconact.png"
+                    ]
+                },
+                {
+                    img_homepage: "img/image10.png",
+                    modalImageListSources: [
+                        "img/image10.png", 
+                        "img/p1.png", 
+                        "img/p2.png", 
+                        "img/p3.png"
+                    ]
+                },
+                {
+                    img_homepage: "img/image11.png",
+                    modalImageListSources: [
+                        "img/image11.png", 
+                        "img/order1.png", 
+                        "img/order2.png", 
+                        "img/order3.png", 
+                        "img/order4.png", 
+                        "img/order5.png", 
+                        "img/order6.png", 
+                        "img/order7.png", 
+                        "img/order8.png", 
+                        "img/order9.png", 
+                        "img/order10.png", 
+                        "img/order11.png", 
+                        "img/order12.png", 
+                        "img/order13.png", 
+                        "img/order14.png", 
+                        "img/order15.png", 
+                        "img/order16.png", 
+                        "img/order17.png", 
+                        "img/order18.png"
+                    ]
+                },
+                {
+                    img_homepage: "img/image1.png",
+                    modalImageListSources: [
+                        "img/image1.png", 
+                        "img/el1.png", 
+                        "img/el2.png", 
+                        "img/el3.png", 
+                        "img/el4.png", 
+                        "img/el5.png", 
+                        "img/el6.png", 
+                        "img/el7.png", 
+                        "img/el8.png", 
+                        "img/el9.png", 
+                        "img/el10.png", 
+                        "img/el11.png", 
+                        "img/el12.png", 
+                        "img/el13.png"
+                    ]
+                },
+                {
+                    img_homepage: "img/image12.png",
+                    modalImageListSources: [
+                        "img/image12.png", 
+                        "img/skin1.png", 
+                        "img/skin2.png", 
+                        "img/skin3.png"
+                    ]
+                },
+                {
+                    img_homepage: "img/ele1.png",
+                    modalImageListSources: [
+                        "img/ele1.png", 
+                        "img/ele2.png", 
+                        "img/ele3.png", 
+                        "img/ele4.png", 
+                        "img/ele5.png", 
+                        "img/ele6.png", 
+                        "img/ele7.png", 
+                        "img/ele8.png", 
+                        "img/ele9.png", 
+                        "img/ele10.png", 
+                        "img/ele11.png", 
+                        "img/ele12.png", 
+                        "img/ele13.png"
+                    ]
+                }
+            ];
+
+            const galleryContainer = document.getElementById('gallery-container');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.close');
+            const imageListContainer = document.querySelector('.list_img');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Function to generate gallery items dynamically
+            function createGallery() {
+                imageSources.forEach(item => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('gallery-item');
+                    galleryItem.setAttribute('data-aos', 'fade-up');
+                    galleryItem.setAttribute('data-aos-duration', '800');
+
+                    const anchor = document.createElement('a');
+                    anchor.href = "#";
+
+                    const img = document.createElement('img');
+                    img.src = item.img_homepage;
+                    img.alt = "Portfolio Image";
+
+                    anchor.appendChild(img);
+                    galleryItem.appendChild(anchor);
+                    galleryContainer.appendChild(galleryItem);
+
+                    anchor.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        openModal(item.img_homepage, item.modalImageListSources);
+                    });
+                });
+            }
+
+            // Function to populate images inside .list_img dynamically
+            function populateModalImageList(imageList) {
+                imageListContainer.innerHTML = ""; // Clear previous items
+                currentModalImages = imageList;
+                currentImageIndex = 0;
+
+                imageList.forEach((src, index) => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = "Thumbnail Image";
+                    img.classList.add('list-thumbnail');
+                    if (index === 0) img.classList.add('active');
+
+                    img.addEventListener('click', function () {
+                        // Remove active class from all thumbnails
+                        document.querySelectorAll('.list-thumbnail').forEach(thumb => {
+                            thumb.classList.remove('active');
+                        });
+                        
+                        // Add active class to clicked thumbnail
+                        img.classList.add('active');
+                        
+                        // Change modal image to clicked image
+                        modalImage.src = src;
+                        currentImageIndex = index;
+                        updateNavigationButtons();
+                    });
+
+                    imageListContainer.appendChild(img);
+                });
+                
+                updateNavigationButtons();
+            }
+
+            // Function to update navigation buttons state
+            function updateNavigationButtons() {
+                prevButton.disabled = currentImageIndex === 0;
+                nextButton.disabled = currentImageIndex === currentModalImages.length - 1;
+            }
+
+            // Function to navigate to previous image
+            prevButton.addEventListener('click', function() {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    modalImage.src = currentModalImages[currentImageIndex];
+                    
+                    // Update active thumbnail
+                    document.querySelectorAll('.list-thumbnail').forEach((thumb, index) => {
+                        thumb.classList.toggle('active', index === currentImageIndex);
+                    });
+                    
+                    updateNavigationButtons();
+                }
+            });
+
+            // Function to navigate to next image
+            nextButton.addEventListener('click', function() {
+                if (currentImageIndex < currentModalImages.length - 1) {
+                    currentImageIndex++;
+                    modalImage.src = currentModalImages[currentImageIndex];
+                    
+                    // Update active thumbnail
+                    document.querySelectorAll('.list-thumbnail').forEach((thumb, index) => {
+                        thumb.classList.toggle('active', index === currentImageIndex);
+                    });
+                    
+                    updateNavigationButtons();
+                }
+            });
+
+            // Function to open the modal
+            function openModal(mainImage, imageList) {
+                modalImage.src = mainImage;
+                modal.style.display = 'flex';
+                populateModalImageList(imageList);
+            }
+
+            // Close the modal when the close button is clicked
+            closeModal.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            // Close the modal when clicking outside the content
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Initialize the gallery
+            createGallery();
+
+            // Skills functionality with local images
+            const skillCategories = {
+                "All skill": ["Photoshop", "Figma", "Vscode", "Visual Studio", "Apache Netben", "C", "C++", "Java", "HTML", "CSS", "Javascript", "Bootstrap", "Jquery", "ReactJs", "PHP", "Python", "MySQL", "Network", "Canva", "Microsoft Office", "Git", "Github"],
+                "Design Tools": ["Photoshop", "Figma", "Canva"],
+                "Programming": ["C", "C++", "Java", "HTML", "CSS", "Python", "Javascript", "PHP"],
+                "Frameworks & Libraries": ["Bootstrap", "Jquery", "ReactJs"],
+                "Development Tools": ["Vscode", "Visual Studio", "Apache Netben", "Git", "Github"],
+                "Databases & Networking": ["MySQL", "Network"]
+            };
+
+            const skills = [
+                { name: "Photoshop", img: "img/photoshop.png", percentage: 50 },
+                { name: "Figma", img: "img/figma.png", percentage: 70 },
+                { name: "Vscode", img: "img/vscode.png", percentage: 90 },
+                { name: "Visual Studio", img: "img/vs2022.png", percentage: 80 },
+                { name: "Apache Netben", img: "img/netben.png", percentage: 90 },
+                { name: "C", img: "img/c.png", percentage: 90 },
+                { name: "C++", img: "img/cpp.png", percentage: 90 },
+                { name: "Java", img: "img/java.png", percentage: 85 },
+                { name: "HTML", img: "img/html.png", percentage: 95 },
+                { name: "CSS", img: "img/css1.png", percentage: 95 },
+                { name: "Javascript", img: "img/js.png", percentage: 80 },
+                { name: "Bootstrap", img: "img/bootstrap1.png", percentage: 100 },
+                { name: "Jquery", img: "img/jquey.png", percentage: 70 },
+                { name: "ReactJs", img: "img/rjs.png", percentage: 75 },
+                { name: "PHP", img: "img/php.png", percentage: 80 },
+                { name: "Python", img: "img/python.png", percentage: 60 },
+                { name: "MySQL", img: "img/mysql.png", percentage: 73 },
+                { name: "Network", img: "img/network.png", percentage: 65 },
+                { name: "Canva", img: "img/canva.png", percentage: 95 },
+                { name: "Microsoft Office", img: "img/mic.png", percentage: 90 },
+                { name: "Git", img: "img/git.png", percentage: 85 },
+                { name: "Github", img: "img/github.png", percentage: 95 }
+            ];
+
+            const skillsContainer = document.querySelector(".skills-container");
+
+            // Generate skill cards dynamically
+            skills.forEach(skill => {
+                const skillCard = document.createElement("div");
+                skillCard.classList.add("skill-card");
+                skillCard.setAttribute('data-aos', 'fade-up');
+                skillCard.setAttribute('data-aos-duration', '800');
+
+                skillCard.innerHTML = `
+                    <div class="skill-info">
+                        <h2>${skill.name}</h2>
+                        <img src="${skill.img}" alt="${skill.name}">
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" data-percent="${skill.percentage}">
+                            <span class="percentage">${skill.percentage}%</span>
+                        </div>
+                    </div>
+                `;
+                skillsContainer.appendChild(skillCard);
+            });
+
+            // Function to animate the progress bars
+            function animateProgressBars() {
+                const progressBars = document.querySelectorAll(".progress");
+
+                progressBars.forEach(bar => {
+                    const percent = bar.getAttribute("data-percent");
+                    const percentageText = bar.querySelector(".percentage");
+
+                    // Set background color based on percentage
+                    if (percent <= 20) {
+                        bar.style.background = "linear-gradient(90deg, #f44336, #ff5252)";
+                    } else if (percent <= 50) {
+                        bar.style.background = "linear-gradient(90deg, #ff9800, #ffb74d)";
+                    } else {
+                        bar.style.background = "linear-gradient(90deg, #4caf50, #66bb6a)";
+                    }
+
+                    // Initialize progress bar at 0%
+                    bar.style.width = "0";
+                    percentageText.style.left = `calc(${percent}% - 25px)`; // Center the percentage text based on width
+
+                    // Animate progress bar to reach the desired percentage
+                    setTimeout(() => {
+                        bar.style.transition = "width 1.5s ease-in-out"; // Smooth transition
+                        bar.style.width = `${percent}%`; // Set to desired percentage
+                    }, 200);
+                });
+            }
+
+            // Set up IntersectionObserver to detect when the skills section is in view
+            const skillsSection = document.querySelector("#skills");
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Trigger progress bar animation when skills section becomes visible
+                        animateProgressBars();
+                        observer.disconnect(); // Disconnect observer after it runs once
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of the section is visible
+            });
+
+            observer.observe(skillsSection); // Start observing the skills section
+
+            // Skill category filtering
+            const skillCards = document.querySelectorAll(".skill-card");
+
+            document.querySelectorAll(".list_skill ul li").forEach(li => {
+                li.addEventListener("click", function () {
+                    // Remove active class from all and add to clicked li
+                    document.querySelectorAll(".list_skill ul li").forEach(item => item.classList.remove("active"));
+                    this.classList.add("active");
+
+                    // Get category text
+                    let category = this.textContent;
+
+                    skillCards.forEach(card => {
+                        let skillName = card.querySelector("h2").textContent;
+
+                        if (category === translations[currentLanguage]["allSkills"] || skillCategories[category].includes(skillName)) {
+                            card.style.display = "block";
+                            card.style.opacity = "0";
+                            card.style.transform = "translateY(20px)"; // Start from bottom
+                            setTimeout(() => {
+                                card.style.transition = "opacity 0.5s ease-in-out, transform 0.5s ease-in-out";
+                                card.style.opacity = "1";
+                                card.style.transform = "translateY(0)";
+                            }, 50);
+                        } else {
+                            card.style.transition = "opacity 0.3s ease-in-out, transform 0.3s ease-in-out";
+                            card.style.opacity = "0";
+                            card.style.transform = "translateY(20px)"; // Moves down before hiding
+                            setTimeout(() => {
+                                card.style.display = "none";
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // CV Download functionality
+            document.getElementById('downloadBtn').addEventListener('click', function () {
+                // Create a link element
+                const link = document.createElement('a');
+                // Set the href to the file you want to download
+                link.href = 'img/PHUN Potthea_CV_Web Developer.pdf';  // Replace with the actual path to your file
+                link.download = 'PHUN Potthea_CV_Web Developer.pdf';  // Desired file name without path
+                link.click();
+            });
+
+            // Contact form functionality
+            (function () {
+                const sendButton = document.getElementById('send-button');
+                const modal = document.getElementById('thank-you-modal');
+                const closeModalButton = document.querySelector('.close-modal-_contact');
+                const modalMessage = document.querySelector('.modal-content-_contact p');
+
+                // Open Modal Function
+                function openModal(message) {
+                    modalMessage.textContent = message;
+                    modal.style.display = 'flex';
+                }
+
+                // Close Modal Function
+                function closeModal() {
+                    modal.style.display = 'none';
+                }
+
+                // Event Listener for the close button in the modal
+                closeModalButton.addEventListener('click', closeModal);
+
+                // Event Listener for clicking outside the modal to close it
+                window.addEventListener('click', function (event) {
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                });
+
+                // Email Validation Function
+                function isValidGmail(email) {
+                    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+                    return gmailRegex.test(email);
+                }
+
+                // Event Listener for send button to simulate form submission and show the modal
+                sendButton.addEventListener('click', function (event) {
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+
+                    // Check if all fields are filled
+                    if (name && email && message) {
+                        if (!isValidGmail(email)) {
+                            openModal('Please enter a valid Gmail address.');
+                        } else {
+                            // Simulate sending the email (you can replace this with real email logic, like EmailJS)
+                            console.log('Message sent:', { name, email, message });
+
+                            // Show the Thank You Modal
+                            openModal(translations[currentLanguage]["thankYou"]);
+
+                            // Clear input fields after successful submission
+                            document.getElementById('name').value = '';
+                            document.getElementById('email').value = '';
+                            document.getElementById('message').value = '';
+                        }
+                    } else {
+                        let errorMessage = 'Please fill in all fields before submitting.';
+
+                        if (!name) {
+                            errorMessage = 'Please enter your name.';
+                        } else if (!email) {
+                            errorMessage = 'Please enter your email.';
+                        } else if (!message) {
+                            errorMessage = 'Please enter your message.';
+                        }
+
+                        // Show error message in the modal
+                        openModal(errorMessage);
+                    }
+                });
+            })();
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>
